@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tigase</groupId>
+  <artifactId>tigase-oauth</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Tigase OAuth</name>
+  <description>OAuth provider for Tigase</description>
+  <organization>
+  	<name>Smartupz LLC</name>
+  	<url>http://www.smartupz.com</url>
+  </organization>
+  <scm>
+  	<connection>scm:git:https://github.com/Smartupz/tigase-oauth.git</connection>
+  	<url>https://github.com/Smartupz/tigase-oauth</url>
+  	<developerConnection>scm:git:https://github.com/Smartupz/tigase-oauth.git</developerConnection>
+  </scm>
+  <inceptionYear>2013</inceptionYear>
+</project>
