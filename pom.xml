@@ -15,6 +15,20 @@
   	<developerConnection>scm:git:https://github.com/Smartupz/tigase-oauth.git</developerConnection>
   </scm>
   <inceptionYear>2013</inceptionYear>
+  <build>
+	<plugins>
+		<plugin>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>2.5.1</version>
+			<configuration>
+				<source>1.6</source>
+				<target>1.6</target>
+				<encoding>UTF-8</encoding>
+				<showDeprecation>true</showDeprecation>
+			</configuration>
+		</plugin>
+	</plugins>
+  </build>
   <dependencies>
   	<dependency>
   		<groupId>junit</groupId>
