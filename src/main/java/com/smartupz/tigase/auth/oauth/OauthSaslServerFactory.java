@@ -22,7 +22,6 @@ public class OauthSaslServerFactory implements SaslServerFactory {
 	@Override
 	public SaslServer createSaslServer(final String mechanism, String protocol, String serverName,
 			Map<String, ?> props, CallbackHandler callbackHandler) throws SaslException {
-		// TODO Auto-generated method stub
 		if (mechanism.equals("OAUTH")) {
 			return new SaslOAUTH(props, callbackHandler);
 		} else
@@ -34,7 +33,6 @@ public class OauthSaslServerFactory implements SaslServerFactory {
 	 */
 	@Override
 	public String[] getMechanismNames(Map<String, ?> arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

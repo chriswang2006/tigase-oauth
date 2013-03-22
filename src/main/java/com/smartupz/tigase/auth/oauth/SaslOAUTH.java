@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.sasl.SaslException;
 
+import org.scribe.exceptions.OAuthConnectionException;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Verb;
@@ -48,24 +49,33 @@ public class SaslOAUTH extends AbstractSasl {
 			if (response != null && response.length > 0) {
 				OAuthRequest rq = new OAuthRequest(Verb.GET, getOauthServerUrl());
 				rq.addHeader("Bearer", new String(response));
-				Response oauthResponse = rq.send();
-				ObjectMapper mapper = new ObjectMapper();
-				HashMap<?, ?> x = mapper.readValue(oauthResponse.getBody(), HashMap.class);
-				userId = (String) x.get("uuid");
+				try {
+					Response oauthResponse = rq.send();
+					if (oauthResponse.getCode() != 200) {
+						userId = null;
+					} else {
+						ObjectMapper mapper = new ObjectMapper();
+						HashMap<?, ?> jsonObjData = mapper.readValue(oauthResponse.getBody(), HashMap.class);
+						Map<?, ?> data = (Map<?, ?>) jsonObjData.get("object");
+						userId = (String) data.get("uuid");
+					}
+				} catch (OAuthConnectionException e) {
+					throw new IOException(e);
+				}
 			} else {
 				userId = null;
 			}
 		} catch (JsonParseException e) {
-			throw new XmppSaslException(SaslError.malformed_request);
+			throw new XmppSaslException(SaslError.incorrect_encoding);
 		} catch (JsonMappingException e) {
-			throw new XmppSaslException(SaslError.malformed_request);
+			throw new XmppSaslException(SaslError.incorrect_encoding);
 		} catch (IOException e) {
 			throw new XmppSaslException(SaslError.temporary_auth_failure);
 		}
 		if (userId != null) {
 			authorizedId = userId;
 		} else {
-			throw new XmppSaslException(SaslError.invalid_authzid);
+			throw new XmppSaslException(SaslError.not_authorized);
 		}
 		complete = true;
 		return null;
