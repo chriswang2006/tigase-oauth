@@ -48,7 +48,7 @@ public class SaslOAUTH extends AbstractSasl {
 		try {
 			if (response != null && response.length > 0) {
 				OAuthRequest rq = new OAuthRequest(Verb.GET, getOauthServerUrl());
-				rq.addHeader("Bearer", new String(response));
+				rq.addHeader("Authorization", "Bearer " + new String(response));
 				try {
 					Response oauthResponse = rq.send();
 					if (oauthResponse.getCode() != 200) {
